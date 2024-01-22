@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.mongodb.lang.NonNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,8 +10,11 @@ import java.util.Date;
 public class JournalEntry {
     @Id
     private String id;
+
+    @NonNull
     private String title;
 
+    @NonNull
     private String content;
     private Date date;
 
