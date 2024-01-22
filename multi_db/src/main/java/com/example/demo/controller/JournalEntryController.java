@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.entity.JournalEntry;
 import com.example.demo.services.JournalEntryServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -15,9 +17,13 @@ public class JournalEntryController {
 
     Map<String, JournalEntry> journalEntryMap = new HashMap<>();
     @GetMapping("getJournal")
-    public List<JournalEntry> getJournalEntry(){
-        List<JournalEntry> journalEntries = journalEntryServices.getAllJournalEntry();
-        return journalEntries;
+    public ResponseEntity<? extends Object> getJournalEntry(){
+        try {
+            List<JournalEntry> response = journalEntryServices.getAllJournalEntry();
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("addJournal")
